@@ -12,8 +12,8 @@
                 students.status,
                 students.student_id
             FROM students
-            JOIN personal_information ON students.student_id = personal_information.student_id
-            JOIN educational_information ON students.student_id = educational_information.student_id
+            LEFT JOIN personal_information ON students.student_id = personal_information.student_id
+            LEFT JOIN educational_information ON students.student_id = educational_information.student_id
             ORDER BY students.created_at DESC";
 
     $result = mysqli_query($conn, $sql);

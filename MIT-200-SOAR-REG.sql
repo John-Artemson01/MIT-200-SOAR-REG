@@ -27,9 +27,11 @@ CREATE TABLE `contact_information` (
   `telephone` varchar(15) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`contact_info_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `contact_information` */
+
+insert  into `contact_information`(`contact_info_id`,`student_id`,`mobile_number`,`telephone`,`email`) values (1,1,'09690254259','0','johnartdg@gmail.com');
 
 /*Table structure for table `educational_information` */
 
@@ -44,9 +46,11 @@ CREATE TABLE `educational_information` (
   `academic_year` varchar(20) DEFAULT NULL,
   `course` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`education_info_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `educational_information` */
+
+insert  into `educational_information`(`education_info_id`,`student_id`,`academic_level`,`year_level`,`period`,`academic_year`,`course`) values (1,1,'Graduate School',1,'1st Trimester','2024-2025','MIT');
 
 /*Table structure for table `family_information` */
 
@@ -62,9 +66,11 @@ CREATE TABLE `family_information` (
   `mother_occupation` varchar(100) DEFAULT NULL,
   `father_occupation` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`family_info_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `family_information` */
+
+insert  into `family_information`(`family_info_id`,`student_id`,`mother_name`,`father_name`,`mother_contact_number`,`father_contact_number`,`mother_occupation`,`father_occupation`) values (1,1,'Iluminada Antolin','Joel-Jonathan De Guzman','09690254259','09299619902','Housewife','Call Center Agent');
 
 /*Table structure for table `personal_information` */
 
@@ -74,6 +80,7 @@ CREATE TABLE `personal_information` (
   `personal_info_id` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` int(11) DEFAULT NULL,
   `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
   `middle_name` varchar(50) DEFAULT NULL,
   `suffix` varchar(10) DEFAULT NULL,
   `gender` enum('Male','Female') DEFAULT NULL,
@@ -81,9 +88,11 @@ CREATE TABLE `personal_information` (
   `age` int(11) DEFAULT NULL,
   `birthplace` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`personal_info_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `personal_information` */
+
+insert  into `personal_information`(`personal_info_id`,`student_id`,`first_name`,`last_name`,`middle_name`,`suffix`,`gender`,`birthday`,`age`,`birthplace`) values (1,1,'John Artemson','De Guzman','Antolin','','Male','2000-09-05',24,'Bulacan');
 
 /*Table structure for table `students` */
 
@@ -95,9 +104,11 @@ CREATE TABLE `students` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`student_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `students` */
+
+insert  into `students`(`student_id`,`status`,`created_at`,`updated_at`) values (1,'Enrolled','2024-10-15 08:41:42','2024-10-15 09:21:10');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
