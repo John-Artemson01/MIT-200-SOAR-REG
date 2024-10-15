@@ -1,22 +1,28 @@
 <?php
-// Include the database connection file
-include 'db_conn.php';
+    // Include the database connection file
+    include 'db_conn.php';
 
-// Fetch student data with JOINs for personal and educational information
-$sql = "SELECT 
-            students.created_at AS registration_date,
-            CONCAT(personal_information.last_name, ', ', personal_information.first_name, ' ', personal_information.middle_name) AS name,
-            educational_information.academic_level,
-            educational_information.year_level,
-            educational_information.course,
-            students.status,
-            students.student_id
-        FROM students
-        JOIN personal_information ON students.student_id = personal_information.student_id
-        JOIN educational_information ON students.student_id = educational_information.student_id
-        ORDER BY students.created_at DESC";
+    // Fetch student data with JOINs for personal and educational information
+    $sql = "SELECT 
+                students.created_at AS registration_date,
+                CONCAT(personal_information.last_name, ', ', personal_information.first_name, ' ', personal_information.middle_name) AS name,
+                educational_information.academic_level,
+                educational_information.year_level,
+                educational_information.course,
+                students.status,
+                students.student_id
+            FROM students
+            JOIN personal_information ON students.student_id = personal_information.student_id
+            JOIN educational_information ON students.student_id = educational_information.student_id
+            ORDER BY students.created_at DESC";
 
-$result = mysqli_query($conn, $sql);
+    $result = mysqli_query($conn, $sql);
+
+    if (isset($_GET['status_update_success'])) {
+        echo '<div class="alert alert-success">Status updated successfully.</div>';
+    } elseif (isset($_GET['status_update_error'])) {
+        echo '<div class="alert alert-danger">Error updating status. Please try again.</div>';
+    }
 ?>
 
 <!DOCTYPE html>
@@ -33,29 +39,30 @@ $result = mysqli_query($conn, $sql);
             padding: 20px;
         }
         .container {
-            max-width: 800px;
             margin: auto;
             background-color: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
         }
-        .container h2 {
+        h2 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            color: #4169e1;
         }
-        label {
-            font-weight: bold;
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
         }
-        .form-group {
-            margin-bottom: 15px;
+        .table th {
+            background-color: #4169e1;
+            color: white;
         }
-        input[type="text"], input[type="email"], input[type="date"], select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        .table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .table-bordered {
+            border: 2px solid #4169e1;
         }
         .btn-submit {
             display: block;
@@ -66,16 +73,40 @@ $result = mysqli_query($conn, $sql);
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-bottom: 20px;
         }
         .btn-submit:hover {
             background-color: #365ab9;
         }
+        .btn-back {
+            background-color: #4169e1; /* Blue background */
+            color: white; /* White text */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px 15px; /* Padding around the text */
+            text-decoration: none; /* No underline */
+            margin-bottom: 20px; /* Margin below the button */
+            transition: background-color 0.3s, color 0.3s, border 0.3s; /* Smooth transition for hover effects */
+        }
+
+        .btn-back:hover {
+            background-color: white; /* White background on hover */
+            color: #4169e1; /* Blue text on hover */
+            border: 2px solid #4169e1; /* Blue border on hover */
+            text-decoration: none; /* Remove underline on hover */
+        }
+
     </style>
 </head>
 <body>
     <div class="container mt-5">
         <h2>Admin Panel - Student Registration</h2>
-        <table class="table table-bordered">
+
+        <!-- Back to Dashboard Button -->
+        <a href="index.php" class="btn-back">Back to Dashboard</a>
+        <br><br>
+
+        <table class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Registration Date</th>
@@ -84,7 +115,7 @@ $result = mysqli_query($conn, $sql);
                     <th>Year Level</th>
                     <th>Course</th>
                     <th>Status</th>
-                    <th>Actions</th>
+                    <th colspan="2">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -101,7 +132,7 @@ $result = mysqli_query($conn, $sql);
                             <td>
                                 <form action="update_status.php" method="POST">
                                     <input type="hidden" name="student_id" value="<?php echo $row['student_id']; ?>">
-                                    <select name="status" onchange="this.form.submit()">
+                                    <select name="status" onchange="this.form.submit()" class="form-control">
                                         <option value="Registered" <?php echo ($row['status'] == 'Registered') ? 'selected' : ''; ?>>Registered</option>
                                         <option value="Admitted" <?php echo ($row['status'] == 'Admitted') ? 'selected' : ''; ?>>Admitted</option>
                                         <option value="Assessed" <?php echo ($row['status'] == 'Assessed') ? 'selected' : ''; ?>>Assessed</option>
@@ -111,7 +142,12 @@ $result = mysqli_query($conn, $sql);
                             </td>
                             <td>
                                 <a href="view_edit.php?student_id=<?php echo $row['student_id']; ?>" class="btn btn-info btn-sm">View / Edit</a>
-                                <a href="delete.php?student_id=<?php echo $row['student_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
+                            </td>
+                            <td>
+                                <a href="delete.php?student_id=<?= $row['student_id']; ?>" class="btn btn-danger"  
+                                    onclick="return confirm('Are you sure you want to delete this student?');">
+                                    Delete
+                                </a>                            
                             </td>
                         </tr>
                         <?php

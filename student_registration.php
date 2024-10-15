@@ -71,9 +71,7 @@
 
     // Close the database connection
     mysqli_close($conn);
-?>
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -91,26 +89,32 @@
             max-width: 800px;
             margin: auto;
             background-color: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
         }
         .container h2 {
             text-align: center;
             margin-bottom: 20px;
+            color: #4169e1;
+            font-size: 1.5em;
+            font-weight: bold;
         }
         label {
             font-weight: bold;
+            font-size: 0.9em;
+            color: #333;
         }
         .form-group {
             margin-bottom: 15px;
         }
-        input[type="text"], input[type="email"], input[type="date"], select {
+        input[type="text"], input[type="email"], input[type="date"], input[type="number"], select {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.1);
         }
         .btn-submit {
             display: block;
@@ -121,9 +125,31 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin-top: 20px;
         }
         .btn-submit:hover {
             background-color: #365ab9;
+        }
+        .btn-back {
+            background-color: #4169e1; /* Blue background */
+            color: white; /* White text */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px 15px; /* Padding around the text */
+            text-decoration: none; /* No underline */
+            margin-bottom: 20px; /* Margin below the button */
+            transition: background-color 0.3s, color 0.3s, border 0.3s; /* Smooth transition for hover effects */
+        }
+
+        .btn-back:hover {
+            background-color: white; /* White background on hover */
+            color: #4169e1; /* Blue text on hover */
+            border: 2px solid #4169e1; /* Blue border on hover */
+            text-decoration: none; /* Remove underline on hover */
+        }
+        .alert {
+            text-align: center;
+            font-size: 1.2em;
         }
     </style>
 </head>
@@ -145,7 +171,7 @@
             </div>
             <div class="form-group">
                 <label for="last_name">Last Name:</label>
-                <input type="text" class="form-control" name="last_name" required> <!-- Added last name field -->
+                <input type="text" class="form-control" name="last_name" required>
             </div>
             <div class="form-group">
                 <label for="middle_name">Middle Name:</label>
@@ -245,7 +271,9 @@
                 <input type="text" class="form-control" name="father_occupation">
             </div>
 
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn-submit">Register</button><br><br>
+            <!-- Add Go Back Button -->
+            <a href="index.php" class="btn-back">Go Back to Homepage</a>
         </form>
     </div>
 </body>
